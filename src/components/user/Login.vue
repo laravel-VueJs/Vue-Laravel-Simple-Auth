@@ -5,6 +5,15 @@ import { useRoute } from "vue-router";
 <template>
   <div class="mx-auto w-4/12 mt-10">
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div class="flex items-center justify-end">
+        <router-link
+            :to="{name:'Register'}"
+            class="bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+        >
+          Sign Up
+        </router-link>
+      </div>
       <div class="mb-4">
         <label
             class="block text-gray-700 text-sm font-bold mb-2"

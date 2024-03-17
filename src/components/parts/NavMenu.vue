@@ -68,11 +68,6 @@ const route = useRoute();
             :to="{name:'Login'}"
             class="inline-block text-sm px-4 py-2 mr-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
         >Login</router-link>
-        <router-link
-            :class="route.path === '/user/register' ? 'bg-white text-teal-600 border-white' : 'text-teal-200'"
-            :to="{name: 'Register'}"
-            class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-        >Registration</router-link>
 
       </div>
     </div>
