@@ -1,5 +1,6 @@
 const baseUrl = "http://localhost:8000";
 const fn = {
+    // Fetch Auth API
     async fetchAuthApi(endPoint = "", params = "", requestType = "GET") {
         const authData = this.getAuthStorage();
         if (authData != undefined && authData != null && authData != "") {
@@ -23,6 +24,8 @@ const fn = {
             return response;
         }
     },
+
+    // Fetch Public API
     async fetchPublicApi(endPoint = "", params = "", requestType = "GET") {
         let request = {
             method: requestType.toUpperCase(),
@@ -42,6 +45,7 @@ const fn = {
         const response = await res.json();
         return response;
     },
+
     setStorage(key, value) {
         localStorage.setItem(key, value);
     },

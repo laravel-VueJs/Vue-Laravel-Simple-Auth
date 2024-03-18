@@ -1,13 +1,31 @@
 <script setup>
-import { useRoute } from "vue-router";
-import {data, fn} from "../../data";
+import { useRoute, useRouter } from "vue-router";
+import { data, fn } from "../../data.js";
+import { ref, watch } from "vue";
 
 import Login from "../user/Login.vue";
 
 const route = useRoute();
+const router = useRouter();
 // console.log(route);
 
-const isAuthenticated = fn.getAuthStorage() !== null;
+const isAuthenticated = ref(false);
+
+watch(route, () => {
+  const authData = fn.getAuthStorage();
+
+  if (authData != undefined && authData != null && authData != "") {
+    isAuthenticated.value = true;
+  } else {
+    isAuthenticated.value = false;
+  }
+});
+
+const logout = () => {
+  fn.fetchAuthApi("/api/auth/logout", {}, "GET");
+  fn.removeStorage("auth");
+  router.push("/login");
+};
 
 </script>
 <template>
@@ -68,13 +86,21 @@ const isAuthenticated = fn.getAuthStorage() !== null;
             >Dashboard</router-link>
       </div>
       <div>
+        <a
+            v-if="isAuthenticated"
+            href="#"
+            @click="logout()"
+            class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+        >Logout</a
+        >
         <router-link
+            v-else
             :class="route.path === '/login' ? 'bg-white text-teal-600 border-white' : 'text-teal-200'"
             :to="{name:'Login'}"
             class="inline-block text-sm px-4 py-2 mr-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
         >Login</router-link>
-
       </div>
+
     </div>
   </nav>
 </template>
