@@ -1,9 +1,13 @@
 <script setup>
 import { useRoute } from "vue-router";
+import {data, fn} from "../../data";
+
 import Login from "../user/Login.vue";
 
 const route = useRoute();
 // console.log(route);
+
+const isAuthenticated = fn.getAuthStorage() !== null;
 
 </script>
 <template>
@@ -57,6 +61,7 @@ const route = useRoute();
 <!--            to="/blog">Dashboard</router-link>-->
 
         <router-link
+            v-if="isAuthenticated"
             :class="route.path === '/user' ? 'text-white' : 'text-teal-200'"
             :to="{ name:'Dashboard'}"
             class="block text-xl mt-4 lg:inline-block lg:mt-0 hover:text-white mr-10"
@@ -64,7 +69,7 @@ const route = useRoute();
       </div>
       <div>
         <router-link
-            :class="route.path === '/user/login' ? 'bg-white text-teal-600 border-white' : 'text-teal-200'"
+            :class="route.path === '/login' ? 'bg-white text-teal-600 border-white' : 'text-teal-200'"
             :to="{name:'Login'}"
             class="inline-block text-sm px-4 py-2 mr-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
         >Login</router-link>

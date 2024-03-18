@@ -1,5 +1,28 @@
 <script setup>
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+import { data, fn } from "../../data.js"
+import {watch, ref} from "vue";
+
+const route = useRoute();
+const router = useRouter();
+
+const email = ref("");
+const password = ref("");
+
+const login = () => {
+  // console.log(email.value, password.value);
+  const res = fn.fetchPublicApi(
+      "/api/login",
+      { email: email.value, password: password.value },
+      "POST"
+  );
+  res.then((response) => {
+    console.log(response);
+    fn.setAuthStorage(response);
+    router.push("/user");
+  });
+
+}
 
 </script>
 <template>
@@ -17,15 +40,16 @@ import { useRoute } from "vue-router";
       <div class="mb-4">
         <label
             class="block text-gray-700 text-sm font-bold mb-2"
-            for="username"
+            for="email"
         >
-          Username
+          Email
         </label>
         <input
+            v-model="email"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            type="text"
-            placeholder="Username"
+            id="email"
+            type="email"
+            placeholder="Email"
         />
       </div>
       <div class="mb-6">
@@ -36,6 +60,7 @@ import { useRoute } from "vue-router";
           Password
         </label>
         <input
+            v-model="password"
             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
@@ -44,6 +69,7 @@ import { useRoute } from "vue-router";
       </div>
       <div class="flex items-center justify-between">
         <button
+            @click="login()"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
         >

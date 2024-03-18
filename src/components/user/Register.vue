@@ -18,7 +18,7 @@ const registerUser = () => {
       "POST"
   );
   res.then((response) => {
-    router.push("/user/login");
+    router.push("/login");
   });
 }
 
