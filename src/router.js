@@ -37,6 +37,14 @@ const routes = [
         path: "/login",
         name: "Login",
         component: Login,
+        // beforeEnter: (to, from, next) => {
+        //     const authData = fn.getAuthStorage();
+        //     if(authData != undefined && authData != null && authData != "") {
+        //         next("/user");
+        //     }else {
+        //         next();
+        //     }
+        // }
     },
     {
         path: "/register",
